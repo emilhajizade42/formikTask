@@ -20,24 +20,27 @@ function AddProductForm() {
           UnitStock:"",
           discounted:"",
           quantitiy:"",
+          categoryId:"",
         },
         onSubmit: values => {
             axios
             .post("https://northwind.vercel.app/api/products", values)
-            .then((response) => {
+            .then(() => {
               alert("send")
-            });        },
+            })},
       });
     return (
         <>
             <h1>Add Product Form</h1>
             <form className='container'  onSubmit={formik.handleSubmit} >
-                <select id="category" onChange={formik.handleChange} onInput={(e)=>{setcategoryId((category.find(item=>(item.name === e.target.value))).id)}} value={formik.values.name} >
+                <label>category</label>
+                <select id="category" onChange={formik.handleChange} onInput={(e)=>{setcategoryId((category.find(item=>(item.name === e.target.value))).id)}} value={formik.values.category} >
                     {category && category.map(item => (
                         <option key={item.id} value={item.name}>{item.name}</option>
                     ))}
                 </select>
-                <p>{categoryId}</p>
+                <label htmlFor="categoryId">categoryId</label>
+                <input id="categoryId" name="categoryId" type="text"  onChange={formik.handleChange} value={formik.values.categoryId = categoryId}></input>
                 <hr/>
                 <label htmlFor="name">Name</label>
                 <input id="name" name="name" type="text"  onChange={formik.handleChange} value={formik.values.name}/>
